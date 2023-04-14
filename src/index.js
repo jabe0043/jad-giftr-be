@@ -1,9 +1,9 @@
 "use strict";
 
-require("dotenv").config();
 const express = require("express");
 const app = express();
 
+require("dotenv").config();
 require("./utils/db.js");
 
 const PeopleRouter = require("./routers/peopleRouter.js");
