@@ -7,6 +7,7 @@ const app = express();
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
 const debug = require("debug")("app:index.js");
+const errorHandler = require("./utils/errors");
 
 const session = require("express-session");
 
@@ -34,10 +35,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get("/", (_req, res) => res.send("Server running"));
 app.use("/auth", authRouter)
 app.use("/api/people", peopleRouter);
 app.use("/api/people/:id/gifts", giftsRouter);
 
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
