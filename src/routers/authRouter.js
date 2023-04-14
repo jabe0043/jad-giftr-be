@@ -9,12 +9,9 @@ require("dotenv").config();
 require("../utils/passport.js");
 
 authRouter.get("/google", (req, res, next) => {
-  // debug("Authenticatoin router runs");
-  console.log("Authenticatoin router runs");
 
   const redirect_url = req.query.redirect_url;
   console.log("redirect_url: ", redirect_url);
-  
 
   const authenticator = passport.authenticate("google", {
     scope: ["profile"],

@@ -12,7 +12,7 @@ require("dotenv").config();
 require("./utils/db");
 
 const peopleRouter = require("./routers/peopleRouter");
-const giftRouter = require("./routers/giftsRouter");
+const giftsRouter = require("./routers/giftsRouter");
 const authRouter = require("./routers/authRouter");
 
 debug("App runs");
@@ -35,7 +35,7 @@ app.use(passport.session());
 
 app.use("/auth", authRouter)
 app.use("/api/people", peopleRouter);
-app.use("/api/people/:id/gifts", giftRouter);
+app.use("/api/people/:id/gifts", giftsRouter);
 
 
 const PORT = process.env.PORT || 3001;

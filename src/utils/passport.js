@@ -1,7 +1,7 @@
 'use strict';
 
 const passport = require("passport");
-const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/userModel");
 
 passport.use(
