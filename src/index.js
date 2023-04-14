@@ -1,5 +1,7 @@
 "use strict";
 
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const passport = require("passport");
@@ -8,7 +10,6 @@ const debug = require("debug")("app:index.js");
 
 const session = require("express-session");
 
-require("dotenv").config();
 require("./utils/db");
 
 const peopleRouter = require("./routers/peopleRouter");

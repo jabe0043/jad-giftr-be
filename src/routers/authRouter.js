@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const authRouter = Router();
 const passport = require("passport");
 
-require("dotenv").config();
 require("../utils/passport.js");
 
 authRouter.get("/google", (req, res, next) => {
