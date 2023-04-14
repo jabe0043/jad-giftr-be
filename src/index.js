@@ -3,13 +3,19 @@
 const express = require("express");
 const app = express();
 const passport = require("passport");
+const MongoStore = require("connect-mongo");
+const debug = require("debug")("app:index.js");
+
+const session = require("express-session");
 
 require("dotenv").config();
-require("./utils/db.js");
+require("./utils/db");
 
-const PeopleRouter = require("./routers/peopleRouter.js");
-const GiftRouter = require("./routers/giftRouter.js");
-const AuthRouter = require("./routers/authRouter.js");
+const peopleRouter = require("./routers/peopleRouter");
+const giftRouter = require("./routers/giftsRouter");
+const authRouter = require("./routers/authRouter");
+
+debug("App runs");
 
 app.use(
   session({
@@ -27,9 +33,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/auth", AuthRouter)
-app.use("/api/people", PeopleRouter);
-app.use("/api/people/:id/gifts", GiftRouter);
+app.use("/auth", authRouter)
+app.use("/api/people", peopleRouter);
+app.use("/api/people/:id/gifts", giftRouter);
 
 
 const PORT = process.env.PORT || 3000;

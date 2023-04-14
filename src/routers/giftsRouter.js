@@ -1,16 +1,17 @@
 const { Router } = require("express");
+const GiftController = require("../controllers/giftController");
 
-const GiftRouter = Router();
+const giftRouter = Router();
 
-GiftRouter.get("/", GiftController.getAllGift);
+giftRouter.get("/", GiftController.getAllGifts);
 
-GiftRouter.get("/:id", GiftController.getGiftById);
+giftRouter.get("/:id", GiftController.getGiftById);
 
-GiftRouter.post("/", GiftController.createGift);
+giftRouter.post("/", GiftController.createGift);
 
-GiftRouter.put("/:id", GiftController.updateGift);
+giftRouter.put("/:id", GiftController.updateGift);
 
-GiftRouter.delete("/:id", GiftController.deleteGift);
+giftRouter.delete("/:id", GiftController.deleteGift);
 
 
-module.exports = GiftRouter;
+module.exports = giftRouter;
