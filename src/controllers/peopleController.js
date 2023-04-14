@@ -1,4 +1,8 @@
-const getAllPeople = async (req, res) => {
+const debug = require("debug")("app:peopleController");
+const Person = require("../models/personModel");
+
+const getAllPeople = async (req, res, next) => {
+  debug("getAllPeople")
   try {
     const people = await Person.find();
     res.json({ data: people });

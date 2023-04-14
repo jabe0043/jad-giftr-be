@@ -5,6 +5,7 @@
   "author": "jung0072 <jung0072@algonquinlive.com>",
   "license": "MIT",
   "dependencies": {
+    "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.0.3"
