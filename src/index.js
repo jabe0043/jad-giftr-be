@@ -3,21 +3,22 @@
 require("dotenv").config();
 
 const express = require("express");
-const app = express();
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
-const debug = require("debug")("app:index.js");
-const errorHandler = require("./utils/errors");
-
 const session = require("express-session");
-
-require("./utils/db");
+const morgan = require("morgan");
 
 const peopleRouter = require("./routers/peopleRouter");
 const giftsRouter = require("./routers/giftsRouter");
 const authRouter = require("./routers/authRouter");
+const { errorHandler } = require("./utils/errors");
+const sanitizedBody = require("./middlewares/sanitizeBody");
 
-debug("App runs");
+require("./utils/db");
+
+const app = express();
+app.use(express.json());
+app.use(morgan("tiny"));
 
 app.use(
   session({
@@ -35,10 +36,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", (_req, res) => res.send("Server running"));
-app.use("/auth", authRouter)
-app.use("/api/people", peopleRouter);
-app.use("/api/people/:id/gifts", giftsRouter);
+app.get("/", (_req, res) => res.status(200).send("Server running"));
+app.use("/auth", authRouter);
+app.use("/api/people", sanitizedBody, peopleRouter);
+app.use("/api/people/:id/gifts", sanitizedBody, giftsRouter);
 
 app.use(errorHandler);
 
