@@ -6,8 +6,10 @@ const app = express();
 require("dotenv").config();
 require("./utils/db.js");
 
-const PeopleRouter = require("./routers/peopleRouter.js");
-const GiftRouter = require("./routers/giftRouter.js");
+app.get("/", (_req, res) => res.send("Server running"));
+app.use("/auth", authRouter);
+app.use("/api/people", sanitizedBody, peopleRouter);
+app.use("/api/people/:id/gifts", sanitizedBody, giftsRouter);
 
 app.use("/api/people", PeopleRouter);
 app.use("/api/people/:id/gifts", GiftRouter);

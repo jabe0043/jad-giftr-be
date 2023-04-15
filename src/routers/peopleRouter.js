@@ -9,7 +9,9 @@ PeopleRouter.get("/:id", PeopleController.getPersonById);
 
 PeopleRouter.post("/", PeopleController.createPerson);
 
-PeopleRouter.put("/:id", PeopleController.updatePerson);
+PeopleRouter.patch("/:id", PeopleController.updatePerson);
+
+PeopleRouter.put("/:id", PeopleController.replacePerson);
 
 PeopleRouter.delete("/:id", PeopleController.deletePerson);
 
