@@ -5,7 +5,7 @@ const PeopleService = require("../services/peopleService");
 const Person = require("../models/personModel");
 
 const getAllPeople = async (req, res, next) => {
-  debug("getAllPeople")
+  debug("getAllPeople");
   try {
     const people = await PeopleService.getAllPeople();
     res.json({ data: people });
