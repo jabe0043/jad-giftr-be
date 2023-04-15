@@ -2,6 +2,7 @@
 
 require("dotenv").config();
 
+const cors = require("cors");
 const express = require("express");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
@@ -17,6 +18,10 @@ const sanitizedBody = require("./middlewares/sanitizeBody");
 require("./utils/db");
 
 const app = express();
+
+app.use(cors({
+  origin: process.env.CORS_WHITELIST
+}));
 app.use(express.json());
 app.use(morgan("tiny"));
 
