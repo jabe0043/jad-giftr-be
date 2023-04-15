@@ -7,6 +7,7 @@ const passport = require("passport");
 const MongoStore = require("connect-mongo");
 const session = require("express-session");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const peopleRouter = require("./routers/peopleRouter");
 const giftsRouter = require("./routers/giftsRouter");
@@ -17,6 +18,11 @@ const sanitizedBody = require("./middlewares/sanitizeBody");
 require("./utils/db");
 
 const app = express();
+app.use(
+  cors({
+    origin: process.env.CORS_WHITELIST.split(","),
+  })
+);
 app.use(express.json());
 app.use(morgan("tiny"));
 
