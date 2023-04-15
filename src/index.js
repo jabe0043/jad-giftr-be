@@ -3,6 +3,19 @@
 require("dotenv").config();
 
 const express = require("express");
+const passport = require("passport");
+const MongoStore = require("connect-mongo");
+const session = require("express-session");
+const morgan = require("morgan");
+
+const peopleRouter = require("./routers/peopleRouter");
+const giftsRouter = require("./routers/giftsRouter");
+const authRouter = require("./routers/authRouter");
+const { errorHandler } = require("./utils/errors");
+const sanitizedBody = require("./middlewares/sanitizeBody");
+
+require("./utils/db");
+
 const app = express();
 app.use(express.json());
 app.use(morgan("tiny"));
