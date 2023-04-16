@@ -20,6 +20,8 @@ PeopleRouter.delete("/:id", PeopleController.deletePerson);
 
 //Gift routes
 
+PeopleRouter.get("/:id/gifts", GiftController.getAllGifts);
+
 PeopleRouter.post("/:id/gifts", GiftController.createGift);
 PeopleRouter.patch("/:id/gifts/:giftId", GiftController.updateGift);
 

@@ -4,20 +4,19 @@ const debug = require("debug")("app:peopleController");
 const GiftService = require('../services/giftService');
 
 
-const getAllGifts = async (req, res) => {
+const getAllGifts = async (req, res, next) => {
   try {
-    console.log('GETALLGIFTS');
-    const gifts = await Gift.find();
-    res.json(gifts);
+    const gifts = await GiftService.getAllGifts(req.params.id);
+    res.status(201).json({data: gifts});
   } catch (error) {
-    
+    next(error);
   }
 };
 
 const getGiftById = async (req, res, next) => {};
 
 
-//HERE
+
 const createGift = async (req, res, next) => {
   try{
     const createdGift = await GiftService.createGift(
@@ -37,7 +36,7 @@ const updateGift = async (req, res, next) => {
       req.params.giftId,
       req.sanitizedBody
     );
-    res.json({data: updatedGift})
+    res.status(201).json({data: updatedGift})
   } catch(error){
     next(error);
   }

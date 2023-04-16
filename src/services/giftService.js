@@ -5,6 +5,14 @@ const Person = require("../models/personModel");
 
 
 
+
+const getAllGifts = async (personId) =>{
+    console.log('GET ALL GIFTS ACTIVATED');
+    const person = await Person.findOne({ _id: personId });
+    return person.gifts;
+}
+
+
 const createGift = async (personId, giftInfo) => {
     console.log("GIFT SERVICE CREATE GIFT");
     const updatedPerson = await Person.findByIdAndUpdate(
@@ -48,6 +56,7 @@ const createGift = async (personId, giftInfo) => {
     };
     
     module.exports = {
+        getAllGifts,
         createGift,
         updateGift
     };
