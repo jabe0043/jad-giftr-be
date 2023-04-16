@@ -2,6 +2,7 @@
 
 require("dotenv").config();
 
+const cors = require("cors");
 const express = require("express");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
@@ -10,7 +11,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const peopleRouter = require("./routers/peopleRouter");
-const giftsRouter = require("./routers/giftsRouter");
+// const giftsRouter = require("./routers/giftsRouter");
 const authRouter = require("./routers/authRouter");
 const { errorHandler } = require("./utils/errors");
 const sanitizedBody = require("./middlewares/sanitizeBody");
@@ -19,11 +20,18 @@ const isAuthenticated = require("./middlewares/isAuthenticated");
 require("./utils/db");
 
 const app = express();
+<<<<<<< HEAD
 app.use(
   cors({
     origin: process.env.CORS_WHITELIST.split(","),
   })
 );
+=======
+
+app.use(cors({
+  origin: process.env.CORS_WHITELIST
+}));
+>>>>>>> main
 app.use(express.json());
 app.use(morgan("tiny"));
 
@@ -43,10 +51,17 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.get("/", (_req, res) => res.status(200).send("Server running"));
 app.use("/auth", authRouter);
+<<<<<<< HEAD
 app.use("/api/people", isAuthenticated, sanitizedBody, peopleRouter);
 app.use("/api/people/:id/gifts", isAuthenticated, sanitizedBody, giftsRouter);
+=======
+app.use("/api/people", sanitizedBody, peopleRouter);
+// app.use("/api/people/:id/gifts", sanitizedBody, peopleRouter);
+
+>>>>>>> main
 
 app.use(errorHandler);
 

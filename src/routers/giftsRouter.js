@@ -5,13 +5,13 @@ const giftsRouter = Router();
 
 giftsRouter.get("/", GiftController.getAllGifts);
 
-giftsRouter.get("/:id", GiftController.getGiftById);
+giftsRouter.get("/:giftId", GiftController.getGiftById);
 
 giftsRouter.post("/", GiftController.createGift);
 
-giftsRouter.put("/:id", GiftController.updateGift);
+giftsRouter.patch("/:giftId", GiftController.updateGift);
 
-giftsRouter.delete("/:id", GiftController.deleteGift);
+giftsRouter.delete("/:giftId", GiftController.deleteGift);
 
 
 module.exports = giftsRouter;
