@@ -10,7 +10,7 @@ const session = require("express-session");
 const morgan = require("morgan");
 
 const peopleRouter = require("./routers/peopleRouter");
-const giftsRouter = require("./routers/giftsRouter");
+// const giftsRouter = require("./routers/giftsRouter");
 const authRouter = require("./routers/authRouter");
 const { errorHandler } = require("./utils/errors");
 const sanitizedBody = require("./middlewares/sanitizeBody");
@@ -41,10 +41,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.get("/", (_req, res) => res.status(200).send("Server running"));
 app.use("/auth", authRouter);
 app.use("/api/people", sanitizedBody, peopleRouter);
-app.use("/api/people/:id/gifts", sanitizedBody, giftsRouter);
+// app.use("/api/people/:id/gifts", sanitizedBody, peopleRouter);
+
 
 app.use(errorHandler);
 
