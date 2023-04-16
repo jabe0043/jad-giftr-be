@@ -9,8 +9,7 @@ const MongoStore = require("connect-mongo");
 const session = require("express-session");
 const morgan = require("morgan");
 
-const peopleRouter = require("./routers/peopleRouter");
-const giftsRouter = require("./routers/giftsRouter");
+const peopleGiftsRouter = require("./routers/peopleGiftsRouter");
 const authRouter = require("./routers/authRouter");
 const { errorHandler } = require("./utils/errors");
 const sanitizedBody = require("./middlewares/sanitizeBody");
@@ -20,9 +19,11 @@ require("./utils/db");
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.CORS_WHITELIST
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_WHITELIST,
+  })
+);
 app.use(express.json());
 app.use(morgan("tiny"));
 
@@ -42,11 +43,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.get("/", (_req, res) => res.status(200).send("Server running"));
 app.use("/auth", authRouter);
-app.use("/api/people", isAuthenticated, sanitizedBody, peopleRouter);
-app.use("/api/people/:id/gifts", isAuthenticated, sanitizedBody, giftsRouter);
+app.use("/api/people", isAuthenticated, sanitizedBody, peopleGiftsRouter);
+app.use(
+  "/api/people/gifts",
+  isAuthenticated,
+  sanitizedBody,
+  peopleGiftsRouter
+);
 
 app.use(errorHandler);
 
