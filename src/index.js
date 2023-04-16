@@ -14,6 +14,7 @@ const giftsRouter = require("./routers/giftsRouter");
 const authRouter = require("./routers/authRouter");
 const { errorHandler } = require("./utils/errors");
 const sanitizedBody = require("./middlewares/sanitizeBody");
+const isAuthenticated = require("./middlewares/isAuthenticated");
 
 require("./utils/db");
 
@@ -44,8 +45,8 @@ app.use(passport.session());
 
 app.get("/", (_req, res) => res.status(200).send("Server running"));
 app.use("/auth", authRouter);
-app.use("/api/people", sanitizedBody, peopleRouter);
-app.use("/api/people/:id/gifts", sanitizedBody, giftsRouter);
+app.use("/api/people", isAuthenticated, sanitizedBody, peopleRouter);
+app.use("/api/people/:id/gifts", isAuthenticated, sanitizedBody, giftsRouter);
 
 app.use(errorHandler);
 
