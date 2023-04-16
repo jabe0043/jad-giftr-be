@@ -6,15 +6,25 @@ const GiftService = require('../services/giftService');
 
 const getAllGifts = async (req, res, next) => {
   try {
-    const gifts = await GiftService.getAllGifts(req.params.id);
+    const gifts = await GiftService.getAllGifts(req.params.id, req.sanitizedBody);
     res.status(201).json({data: gifts});
   } catch (error) {
     next(error);
   }
 };
 
-const getGiftById = async (req, res, next) => {};
-
+const getGiftById = async (req, res, next) => {
+  try{
+    const gift = await GiftService.getGiftById(
+      req.params.id,
+      req.params.giftId,
+      req.sanitizedBody
+      );
+      res.status(201).json({data: gift});
+  } catch(error){
+    next(error);
+  }
+};
 
 
 const createGift = async (req, res, next) => {
@@ -44,7 +54,17 @@ const updateGift = async (req, res, next) => {
 
 
 
-const deleteGift = async (req, res, next) => {};
+const deleteGift = async (req, res, next) => {
+  try{
+    const deletedGift = await GiftService.deleteGift(
+      req.params.id,
+      req.params.giftId,
+    );
+    res.status(201).json({data: deletedGift});
+  } catch (error) {
+    next(error);
+  }
+};
 
 
 module.exports = {
