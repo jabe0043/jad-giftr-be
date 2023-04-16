@@ -1,5 +1,25 @@
 const { Schema, Types, model } = require("mongoose");
 
+const giftSchema = new Schema(
+  {
+    giftName:{
+      type: String,
+      required: true
+    },
+    store:{
+      type: String,
+    },
+    website:{
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  });
+
+
+
 const PersonSchema = new Schema(
   {
     fullName: {
@@ -14,10 +34,7 @@ const PersonSchema = new Schema(
       type: Types.ObjectId,
       required: true,
     },
-    // gifts: {
-    //   type: [Gift],
-    //   required: false,
-    // }
+    gifts: [giftSchema],
   },
   {
     timestamps: true,
