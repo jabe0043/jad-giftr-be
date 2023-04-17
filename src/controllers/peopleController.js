@@ -29,6 +29,11 @@ const getPersonById = async (req, res, next) => {
 const createPerson = async (req, res, next) => {
   debug("createPerson");
   try {
+    const ownerID = req.user._id;
+    req.sanitizedBody = {
+      ...req.sanitizedBody,
+      ownerID,
+    };
     const createdPerson = await PeopleService.createPerson(req.sanitizedBody);
     res.status(201).json({ data: createdPerson });
   } catch (error) {
