@@ -12,7 +12,7 @@ const getAllPeople = async (ownerID) => {
 const getPersonById = async (id, ownerID) => {
   debug("getPersonById");
   const person = await Person.findOne({ _id: id, ownerID: ownerID });
-  if (!person) throw new NotFoundError(`Person is ${id} not found`);
+  if (!person) throw new NotFoundError(`Person ${id} is not found`);
   return person;
 };
 

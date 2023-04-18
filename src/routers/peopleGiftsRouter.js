@@ -18,9 +18,9 @@ PeopleRouter.put("/:id", PeopleController.replacePerson);
 PeopleRouter.delete("/:id", PeopleController.deletePerson);
 
 
-//Gift routes
+//Gift routes (/api/people/:personId/gifts/)
 
-PeopleRouter.get("/:id/gifts", GiftController.getAllGifts);
+PeopleRouter.get("/:id/gifts", GiftController.getAllGifts); 
 
 PeopleRouter.get("/:id/gifts/:giftId", GiftController.getGiftById);
 
