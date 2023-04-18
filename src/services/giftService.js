@@ -1,26 +1,29 @@
 "use strict";
 const debug = require("debug")("app:peopleController");
-
 const Person = require("../models/personModel");
+const { NotFoundError, BadRequestError } = require("../utils/errors");
+
 
 
 const getAllGifts = async (personId) =>{
+    console.log('GET ALL GIFTS')
     const person = await Person.findOne({ _id: personId });
     return person.gifts;
 }
 
 // TODO: May need to change this
 const getGiftById = async (personId, giftId) =>{
-    console.log('getGiftById', giftId);
+    console.log('GET GIFT BY ID')
     const person = await Person.findOne({_id: personId});
     const gift = person.gifts.find(gift => gift._id.toString() === giftId); 
+    if (!gift) throw new NotFoundError(`Gift ${giftId} not found`)
     return gift;
 }
 
 
 
 const createGift = async (personId, giftInfo) => {
-    console.log("GIFT SERVICE CREATE GIFT");
+    console.log('GIFT POST')
     const updatedPerson = await Person.findByIdAndUpdate(
         personId,
         {
@@ -57,7 +60,7 @@ const createGift = async (personId, giftInfo) => {
             runValidators: true,
         }
         );
-    
+        if (!updatedGift) throw new NotFoundError(`Gift ${giftId} not found.`)
         return updatedGift.gifts.find(
         (gift) => gift._id.toString() === giftId
         );
@@ -80,6 +83,7 @@ const createGift = async (personId, giftInfo) => {
             }
         );
         const deletedGift = person.gifts[0];
+        if (!deletedGift) throw new NotFoundError(`Gift ${giftId} not found.`)
         return deletedGift;
         };
 
