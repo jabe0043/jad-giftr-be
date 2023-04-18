@@ -6,14 +6,12 @@ const { NotFoundError, BadRequestError } = require("../utils/errors");
 
 
 const getAllGifts = async (personId) =>{
-    console.log('GET ALL GIFTS')
     const person = await Person.findOne({ _id: personId });
     return person.gifts;
 }
 
-// TODO: May need to change this
+
 const getGiftById = async (personId, giftId) =>{
-    console.log('GET GIFT BY ID')
     const person = await Person.findOne({_id: personId});
     const gift = person.gifts.find(gift => gift._id.toString() === giftId); 
     if (!gift) throw new NotFoundError(`Gift ${giftId} not found`)
@@ -23,7 +21,6 @@ const getGiftById = async (personId, giftId) =>{
 
 
 const createGift = async (personId, giftInfo) => {
-    console.log('GIFT POST')
     const updatedPerson = await Person.findByIdAndUpdate(
         personId,
         {
