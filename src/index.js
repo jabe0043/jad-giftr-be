@@ -47,7 +47,7 @@ app.use(passport.session());
 app.get("/", (_req, res) => res.status(200).send("Server running"));
 app.use("/auth", authRouter);
 app.use("/api/people", isAuthenticated, sanitizedBody, peopleGiftsRouter);
-app.use("/api/userName",isAuthenticated, UserRouter);
+app.use("/api/user/",isAuthenticated, UserRouter);
 
 app.use(errorHandler);
 
