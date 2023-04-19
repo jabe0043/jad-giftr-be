@@ -29,6 +29,7 @@ const sanitizeValue = (value) => {
 };
 
 const sanitizedBody = (req, res, next) => {
+  debug("sanitize body", req.body)
   const { id, _id, ...attributes } = req.body;
   const sanitizedBody = stripTags(attributes);
   debug({ sanitizeBody: attributes });

@@ -34,6 +34,10 @@ const PersonSchema = new Schema(
       type: Types.ObjectId,
       required: true,
     },
+    avatar: {
+      type: String,
+      required: true,
+    },
     gifts: [giftSchema],
   },
   {
