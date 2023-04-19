@@ -14,6 +14,7 @@ const authRouter = require("./routers/authRouter");
 const { errorHandler } = require("./utils/errors");
 const sanitizedBody = require("./middlewares/sanitizeBody");
 const isAuthenticated = require("./middlewares/isAuthenticated");
+const UserRouter = require("./routers/userRouter");
 
 require("./utils/db");
 
@@ -33,7 +34,7 @@ app.use(
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7, 
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     },
     store: MongoStore.create({
       mongoUrl: process.env.MONGO_URL,
@@ -46,7 +47,7 @@ app.use(passport.session());
 app.get("/", (_req, res) => res.status(200).send("Server running"));
 app.use("/auth", authRouter);
 app.use("/api/people", isAuthenticated, sanitizedBody, peopleGiftsRouter);
-
+app.use("/api/userName",isAuthenticated, UserRouter);
 
 app.use(errorHandler);
 
