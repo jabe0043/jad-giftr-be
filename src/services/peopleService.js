@@ -5,7 +5,7 @@ const Person = require("../models/personModel");
 
 const getAllPeople = async (ownerID) => {
   debug("getAllPeople");
-  const people = await Person.find({ ownerID });
+  const people = await Person.find({ ownerID }).select(['-gifts']);   //'.select(['-gifts'] excludes the gifts resource from the response
   return people;
 };
 
