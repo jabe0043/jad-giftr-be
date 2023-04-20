@@ -7,6 +7,9 @@ const express = require("express");
 const passport = require("passport");
 const MongoStore = require("connect-mongo");
 const session = require("express-session");
+const helmet = require('helmet')
+const compression = require('compression')
+const sanitizeMongo = require('express-mongo-sanitize');
 const morgan = require("morgan");
 
 const peopleGiftsRouter = require("./routers/peopleGiftsRouter");
@@ -20,6 +23,10 @@ require("./utils/db");
 
 const app = express();
 
+
+app.use(compression());
+app.use(helmet());
+app.use(sanitizeMongo());
 app.use(
   cors({
     origin: process.env.CORS_WHITELIST,
