@@ -26,6 +26,9 @@ authRouter.get(
     const redirectUrl = state ?? "/api/people";
     const id = req.user._id.toString();
     const token = jwt.sign({ id }, process.env.JWT_SECRET);
+
+    res.header('Access-Control-Allow-Origin', 'https://giftr-mj-jj.netlify.app, http://localhost:5173');
+
     res.redirect(`${redirectUrl}?token=${token}`);
   }
 );
